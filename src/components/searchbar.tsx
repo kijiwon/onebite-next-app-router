@@ -9,6 +9,7 @@ export default function Searchbar() {
   const searchParams = useSearchParams();
   const [search, setSearch] = useState("");
 
+  // 페이지에 전달된 쿼리 스트링을 가져옴
   const q = searchParams.get("q");
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export default function Searchbar() {
   };
 
   const onSubmit = () => {
+    // 검색어가 없거나 동일한 검색어의 경우 이동하지 않음
     if (!search || q === search) return;
     router.push(`/search?q=${search}`);
   };
@@ -32,11 +34,7 @@ export default function Searchbar() {
 
   return (
     <div className={style.container}>
-      <input
-        value={search}
-        onChange={onChangeSearch}
-        onKeyDown={onKeyDown}
-      />
+      <input value={search} onChange={onChangeSearch} onKeyDown={onKeyDown} />
       <button onClick={onSubmit}>검색</button>
     </div>
   );
