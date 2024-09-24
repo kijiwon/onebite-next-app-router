@@ -3,7 +3,9 @@ import style from "./page.module.css";
 import { BookData } from "@/types";
 
 async function AllBooks() {
-  const response = await fetch("http://localhost:12345/book");
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`
+  );
   if (!response.ok) {
     return <div>오류가 발생했습니다...</div>;
   }
@@ -20,7 +22,9 @@ async function AllBooks() {
 }
 
 async function RecBooks() {
-  const response = await fetch("http://localhost:12345/book/random");
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/random`
+  );
   if (!response.ok) {
     return <div>오류가 발생했습니다...</div>;
   }
