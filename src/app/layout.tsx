@@ -7,7 +7,8 @@ import { BookData } from "@/types";
 async function Footer() {
   // request memoization으로 동일한 주소로의 api 요청은 한 번만 이루어짐
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
+    { cache: "force-cache" }
   );
   if (!response.ok) {
     return <footer>제작 @zzionie</footer>;
