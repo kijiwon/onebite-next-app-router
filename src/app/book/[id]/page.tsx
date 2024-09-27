@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import style from "./page.module.css";
 
+// 정적 파라미터로 생성한 페이지 이외에는 404 페이지로 이동
+export const dynamicParams = false;
+
 // 정적인 파라미터를 생성하는 함수 <- 빌드 타임에 정적 파라미터를 읽어 헤당 파라미터에 해당하는 페이지를 정적으로 생성
 export function generateStaticParams() {
   return [{ id: "1" }, { id: "2" }, { id: "3" }];
