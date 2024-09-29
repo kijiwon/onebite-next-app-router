@@ -31,7 +31,7 @@ export default function Page({
   };
 }) {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense key={searchParams.q || ""} fallback={<div>Loading...</div>}>
       <SearchResult q={searchParams.q || ""} />
     </Suspense>
   );
