@@ -25,7 +25,7 @@ async function BookDetail({ bookId }: { bookId: string }) {
     book;
 
   return (
-    <div className={style.container}>
+    <section>
       <div
         className={style.cover_img_container}
         style={{ backgroundImage: `url('${coverImgUrl}')` }}
@@ -38,14 +38,35 @@ async function BookDetail({ bookId }: { bookId: string }) {
         {author} | {publisher}
       </div>
       <div className={style.description}>{description}</div>
+    </section>
+  );
+}
+
+function ReviewEditor() {
+  // server action을 할 함수
+  async function createReviewAction(formData: FormData) {
+    "use server";
+    const content = formData.get("content")?.toString();
+    const author = formData.get("author")?.toString();
+    console.log(content, author);
+  }
+
+  return (
+    <div>
+      <form action={createReviewAction}>
+        <input name="content" placeholder="리뷰 내용" />
+        <input name="author" placeholder="작성자" />
+        <button type="submit">작성하기</button>
+      </form>
     </div>
   );
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default function Page({ params }: { params: { id: string } }) {
   return (
-    <div>
+    <div className={style.container}>
       <BookDetail bookId={params.id} />
+      <ReviewEditor />
     </div>
   );
 }
