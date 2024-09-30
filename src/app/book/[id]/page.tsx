@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import style from "./page.module.css";
+import { createReviewAction } from "@/actions/create-review.action";
 
 // 정적 파라미터로 생성한 페이지 이외에는 404 페이지로 이동
 // export const dynamicParams = false;
@@ -43,33 +44,11 @@ async function BookDetail({ bookId }: { bookId: string }) {
 }
 
 function ReviewEditor({ bookId }: { bookId: string }) {
-  // server action을 할 함수
-  async function createReviewAction(formData: FormData) {
-    "use server";
-    const content = formData.get("content")?.toString();
-    const author = formData.get("author")?.toString();
-
-    if (!content || !author) return;
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review`,
-        {
-          method: "POST",
-          body: JSON.stringify({ bookId, content, author }), // 직렬화
-        }
-      );
-
-      console.log(response.status);
-    } catch (error) {
-      console.log(error);
-      return;
-    }
-  }
-
   return (
     <div>
       <form action={createReviewAction}>
+        {/* bookId를 넘겨주기 위한 input */}
+        <input name="bookId" value={bookId} hidden />
         <input required name="content" placeholder="리뷰 내용" />
         <input required name="author" placeholder="작성자" />
         <button type="submit">작성하기</button>
