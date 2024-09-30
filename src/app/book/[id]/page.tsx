@@ -57,11 +57,25 @@ function ReviewEditor({ bookId }: { bookId: string }) {
   );
 }
 
+async function ReviewList({ bookId }: { bookId: string }) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookId}`
+  );
+  if (!response.ok) {
+    throw new Error(`Review fetch failed : ${response.statusText}`);
+  }
+
+  const reviews = await response.json();
+  console.log(reviews);
+  return <section></section>;
+}
+
 export default function Page({ params }: { params: { id: string } }) {
   return (
     <div className={style.container}>
       <BookDetail bookId={params.id} />
       <ReviewEditor bookId={params.id} />
+      <ReviewList bookId={params.id} />
     </div>
   );
 }
