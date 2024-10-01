@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 // server action을 할 함수
 export async function createReviewAction(formData: FormData) {
@@ -20,7 +20,9 @@ export async function createReviewAction(formData: FormData) {
     );
 
     console.log(response.status);
-    revalidatePath(`/book/${bookId}`);
+    // revalidatePath(`/book/${bookId}`);
+    // 태그를 기준으로 데이터 캐시 재검증
+    revalidateTag(`review-${bookId}`);
   } catch (error) {
     console.log(error);
     return;

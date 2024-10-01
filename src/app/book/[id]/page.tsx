@@ -47,7 +47,9 @@ async function BookDetail({ bookId }: { bookId: string }) {
 
 async function ReviewList({ bookId }: { bookId: string }) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookId}`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookId}`,
+    //  데이터 캐시 재검증을 위한 tags 설정
+    { next: { tags: [`review-${bookId}`] } }
   );
   if (!response.ok) {
     throw new Error(`Review fetch failed : ${response.statusText}`);
