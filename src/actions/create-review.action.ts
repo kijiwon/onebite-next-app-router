@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 // server action을 할 함수
 export async function createReviewAction(formData: FormData) {
   const bookId = formData.get("bookId")?.toString();
@@ -18,6 +20,7 @@ export async function createReviewAction(formData: FormData) {
     );
 
     console.log(response.status);
+    revalidatePath(`/book/${bookId}`);
   } catch (error) {
     console.log(error);
     return;
