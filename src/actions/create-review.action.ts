@@ -1,5 +1,6 @@
 "use server";
 
+import { delay } from "@/util/delay";
 import { revalidatePath, revalidateTag } from "next/cache";
 
 // server action을 할 함수
@@ -11,6 +12,7 @@ export async function createReviewAction(formData: FormData) {
   if (!bookId || !content || !author) return;
 
   try {
+    await delay(2000);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review`,
       {
