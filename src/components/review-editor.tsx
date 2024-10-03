@@ -3,12 +3,21 @@
 import { createReviewAction } from "@/actions/create-review.action";
 import style from "./review-editor.module.css";
 import { useActionState } from "react";
+import { useEffect } from "react";
 
 export default function ReviewEditor({ bookId }: { bookId: string }) {
   const [state, formAction, isPending] = useActionState(
     createReviewAction,
     null
   );
+
+  // state의 변화에 따라 에러가 발생했는지를 검증
+  useEffect(() => {
+    if (state && !state.status) {
+      alert(state.error);
+    }
+  }, [state]);
+
   return (
     <section>
       <form className={style.form_container} action={formAction}>
