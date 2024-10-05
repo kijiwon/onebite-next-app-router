@@ -2,6 +2,7 @@ import BookItem from "@/components/book-item";
 import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
 import { BookData } from "@/types";
 import { delay } from "@/util/delay";
+import { Metadata } from "next";
 import { Suspense } from "react";
 
 async function SearchResult({ q }: { q: string }) {
@@ -22,6 +23,25 @@ async function SearchResult({ q }: { q: string }) {
       ))}
     </div>
   );
+}
+
+// 동적인 메타 데이터를 생성
+export function generateMetadata({
+  searchParams,
+}: {
+  searchParams: {
+    q?: string;
+  };
+}): Metadata {
+  return {
+    title: `${searchParams.q} : 한입북스 검색`,
+    description: `${searchParams.q} 검색 결과입니다`,
+    openGraph: {
+      title: `${searchParams.q} : 한입북스 검색`,
+      description: `${searchParams.q} 검색 결과입니다`,
+      images: ["/thumbnail.png"],
+    },
+  };
 }
 
 export default function Page({
