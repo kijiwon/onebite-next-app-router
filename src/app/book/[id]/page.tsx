@@ -10,8 +10,19 @@ import { Metadata } from "next";
 // export const dynamicParams = false;
 
 // 정적인 파라미터를 생성하는 함수 <- 빌드 타임에 정적 파라미터를 읽어 헤당 파라미터에 해당하는 페이지를 정적으로 생성
-export function generateStaticParams() {
-  return [{ id: "1" }, { id: "2" }, { id: "3" }];
+export async function generateStaticParams() {
+  // 모든 book 데이터를 가져와 정적 파라미터로 전달
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`
+  );
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  const books: BookData[] = await response.json();
+
+  return books.map((book) => ({
+    id: book.id.toString(),
+  }));
 }
 
 async function BookDetail({ bookId }: { bookId: string }) {
