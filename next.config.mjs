@@ -5,6 +5,9 @@ const nextConfig = {
       fullUrl: true, // 데이터 패칭 로그로 출력하기
     },
   },
+  images: {
+    domains: ["shopping-phinf.pstatic.net"],
+  },
 };
 
 export default nextConfig;
